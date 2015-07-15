@@ -4,8 +4,13 @@ $lang = array();
 
 $lang['user_blocked'] = "You are currently locked out of the system.";
 
-$lang['email_password_invalid'] = "Email address / password are invalid.";
-$lang['email_password_incorrect'] = "Email address / password are incorrect.";
+$lang['username_short'] = "Username is too short.";
+$lang['username_long'] = "Username is too long.";
+$lang['username_invalid'] = "Username is invalid.";
+$lang['username_banned'] = "This username is not allowed.";
+
+$lang['username_password_invalid'] = "Username / password are invalid.";
+$lang['username_password_incorrect'] = "Username / password are incorrect.";
 $lang['remember_me_invalid'] = "The remember me field is invalid.";
 
 $lang['password_short'] = "Password is too short.";
@@ -16,10 +21,11 @@ $lang['password_changed'] = "Password changed successfully.";
 $lang['password_incorrect'] = "Current password is incorrect.";
 $lang['password_notvalid'] = "Password is invalid.";
 
-$lang['newpassword_short'] = "New password is too short.";
-$lang['newpassword_long'] = "New password is too long.";
-$lang['newpassword_invalid'] = "New password must contain at least one uppercase and lowercase character, and at least one digit.";
+//$lang['newpassword_short'] = "New password is too short.";
+//$lang['newpassword_long'] = "New password is too long.";
+//$lang['newpassword_invalid'] = "New password must contain at least one uppercase and lowercase character, and at least one digit.";
 $lang['newpassword_nomatch'] = "New passwords do not match.";
+$lang['newpassword_match'] = "New password matches previous password.";
 
 $lang['email_short'] = "Email address is too short.";
 $lang['email_long'] = "Email address is too long.";
@@ -32,14 +38,18 @@ $lang['newemail_match'] = "New email matches previous email.";
 
 $lang['account_inactive'] = "Account has not yet been activated.";
 $lang['account_activated'] = "Account activated.";
+$lang['account_deleted'] = "Account deleted.";
 
 $lang['logged_in'] = "You are now logged in.";
-$lang['logged_out'] = "You are now logged out.";
+//$lang['logged_out'] = "You are now logged out.";
 
 $lang['system_error'] = "A system error has been encountered. Please try again.";
 
 $lang['register_success'] = "Account created. Activation email sent to email.";
+$lang['username_taken'] = "The username is already taken.";
 $lang['email_taken'] = "The email address is already in use.";
+
+$lang['key_invalid'] = "The key is invalid.";
 
 $lang['resetkey_invalid'] = "Reset key is invalid.";
 $lang['resetkey_incorrect'] = "Reset key is incorrect.";
@@ -55,7 +65,7 @@ $lang['reset_exists'] = "A reset request already exists.";
 
 $lang['already_activated'] = "Account is already activated.";
 $lang['activation_sent'] = "Activation email has been sent.";
-$lang['activation_exists'] = "An activation email has already been sent.";
+//$lang['activation_exists'] = "An activation email has already been sent.";
 
 $lang['email_activation_subject'] = "%s - Activate account";
 $lang['email_activation_body'] = "Hello,<br/><br/> To be able to log in to your account you first need to activate your account by clicking on the following link : <strong><a href=\"%1$s/%2$s\">%1$s/%2$s</a></strong><br/><br/> You then need to use the following activation key: <strong>%3$s</strong><br/><br/> If you did not sign up on %1$s recently then this message was sent in error, please ignore it.";

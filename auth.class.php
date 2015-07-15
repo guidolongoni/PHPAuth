@@ -34,7 +34,7 @@ class Auth
 	* @return array $return
 	*/
 
-	public function login($email, $password, $remember = 0)
+	public function login($username, $password, $remember = 0)
 	{
 		$return['error'] = true;
 
@@ -44,18 +44,18 @@ class Auth
 			return $return;
 		}
 
-		$validateEmail = $this->validateEmail($email);
+		$validateUsername = $this->validateUsername($username);
 		$validatePassword = $this->validatePassword($password);
 
-		if ($validateEmail['error'] == 1) {
+		if ($validateUsername['error'] == 1) {
 			$this->addAttempt();
 
-			$return['message'] = $this->lang["email_password_invalid"];
+			$return['message'] = $this->lang["username_password_invalid"];
 			return $return;
 		} elseif($validatePassword['error'] == 1) {
 			$this->addAttempt();
 
-			$return['message'] = $this->lang["email_password_invalid"];
+			$return['message'] = $this->lang["username_password_invalid"];
 			return $return;
 		} elseif($remember != 0 && $remember != 1) {
 			$this->addAttempt();
@@ -64,12 +64,12 @@ class Auth
 			return $return;
 		}
 
-		$uid = $this->getUID(strtolower($email));
+		$uid = $this->getUID(strtolower($username));
 
 		if(!$uid) {
 			$this->addAttempt();
 
-			$return['message'] = $this->lang["email_password_incorrect"];
+			$return['message'] = $this->lang["username_password_incorrect"];
 			return $return;
 		}
 
@@ -78,7 +78,7 @@ class Auth
 		if (!password_verify($password, $user['password'])) {
 			$this->addAttempt();
 
-			$return['message'] = $this->lang["email_password_incorrect"];
+			$return['message'] = $this->lang["username_password_incorrect"];
 			return $return;
 		}
 
@@ -108,12 +108,13 @@ class Auth
 	/*
 	* Creates a new user, adds them to database
 	* @param string $email
+	* @param string $username
 	* @param string $password
 	* @param string $repeatpassword
 	* @return array $return
 	*/
 
-	public function register($email, $password, $repeatpassword)
+	public function register($email, $username, $password, $repeatpassword)
 	{
 		$return['error'] = true;
 
@@ -123,10 +124,14 @@ class Auth
 		}
 
 		$validateEmail = $this->validateEmail($email);
+		$validateUsername = $this->validateUsername($username);
 		$validatePassword = $this->validatePassword($password);
 
 		if ($validateEmail['error'] == 1) {
 			$return['message'] = $validateEmail['message'];
+			return $return;
+		} elseif ($validateUsername['error'] == 1) {
+			$return['message'] = $validateUsername['message'];
 			return $return;
 		} elseif ($validatePassword['error'] == 1) {
 			$return['message'] = $validatePassword['message'];
@@ -142,8 +147,15 @@ class Auth
 			$return['message'] = $this->lang["email_taken"];
 			return $return;
 		}
+		
+		if ($this->isUsernameTaken($username)) {
+			$this->addAttempt();
 
-		$addUser = $this->addUser($email, $password);
+			$return['message'] = $this->lang["username_taken"];
+			return $return;
+		}
+
+		$addUser = $this->addUser($email, $username, $password);
 
 		if($addUser['error'] != 0) {
 			$return['message'] = $addUser['message'];
@@ -278,7 +290,6 @@ class Auth
 	/*
 	* Hashes provided password with Bcrypt
 	* @param string $password
-	* @param string $password
 	* @return string
 	*/
 
@@ -293,10 +304,10 @@ class Auth
 	* @return array $uid
 	*/
 
-	public function getUID($email)
+	public function getUID($username)
 	{
-		$query = $this->dbh->prepare("SELECT id FROM {$this->config->table_users} WHERE email = ?");
-		$query->execute(array($email));
+		$query = $this->dbh->prepare("SELECT id FROM {$this->config->table_users} WHERE username = ?");
+		$query->execute(array($username));
 
 		if($query->rowCount() == 0) {
 			return false;
@@ -461,13 +472,29 @@ class Auth
 	}
 
 	/*
+	* Checks if a username is already in use
+	* @param string $username
+	* @return boolean
+	*/
+
+	private function isUsernameTaken($username)
+	{
+		if($this->getUID($username)) {
+			return true;
+		}
+			
+		return false;
+	}
+
+	/*
 	* Adds a new user to database
 	* @param string $email
+	* @param string $username
 	* @param string $password
 	* @return int $uid
 	*/
 
-	private function addUser($email, $password)
+	private function addUser($email, $username, $password)
 	{
 		$return['error'] = true;
 
@@ -491,11 +518,12 @@ class Auth
 			return $return;
 		}
 
+		$username = htmlentities(strtolower($username));
 		$password = $this->getHash($password);
 
-		$query = $this->dbh->prepare("UPDATE {$this->config->table_users} SET email = ?, password = ? WHERE id = ?");
-
-		if(!$query->execute(array($email, $password, $uid))) {
+		$query = $this->dbh->prepare("UPDATE {$this->config->table_users} SET username = ?, password = ?, email = ? WHERE id = ?");
+		
+		if(!$query->execute(array($username, $password, $email, $uid))) {
 			$query = $this->dbh->prepare("DELETE FROM {$this->config->table_users} WHERE id = ?");
 			$query->execute(array($uid));
 
@@ -515,7 +543,7 @@ class Auth
 
 	public function getUser($uid)
 	{
-		$query = $this->dbh->prepare("SELECT email, password, isactive FROM {$this->config->table_users} WHERE id = ?");
+		$query = $this->dbh->prepare("SELECT username, password, email, isactive FROM {$this->config->table_users} WHERE id = ?");
 		$query->execute(array($uid));
 
 		if ($query->rowCount() == 0) {
@@ -539,7 +567,7 @@ class Auth
 	* @return array $return
 	*/
 
-	public function deleteUser($uid, $password)
+	public function deleteUser($uid, $password) 
 	{
 		$return['error'] = true;
 
@@ -736,6 +764,37 @@ class Auth
 	{
 		$query = $this->dbh->prepare("DELETE FROM {$this->config->table_requests} WHERE id = ?");
 		return $query->execute(array($id));
+	}
+
+	/*
+	* Verifies that a username is valid
+	* @param string $username
+	* @return array $return
+	*/
+
+	public function validateUsername($username) {
+		$return['error'] = 1;
+
+		if (strlen($username) < 3) {
+			$return['message'] = $this->lang["username_short"];
+			return $return;
+		} elseif (strlen($username) > 30) {
+			$return['message'] = $this->lang["username_long"];
+			return $return;
+		} elseif (!ctype_alnum($username)) {
+			$return['message'] = $this->lang["username_invalid"];
+			return $return;
+		}
+		
+		$bannedUsernames = json_decode(file_get_contents(__DIR__ . "/files/users.json"));
+		
+		if(in_array(strtolower($username), $bannedUsernames)) {
+			$return['message'] = $this->lang["username_banned"];
+			return $return;
+		}
+  
+		$return['error'] = 0;
+		return $return;
 	}
 
 	/*
@@ -1081,7 +1140,8 @@ class Auth
 		if ($row['count'] == 5) {
 			if ($currentdate < $expiredate) {
 				return true;
-}
+			}
+
 			$this->deleteAttempts($ip);
 			return false;
 		}

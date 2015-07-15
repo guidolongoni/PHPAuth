@@ -78,6 +78,7 @@ CREATE TABLE `sessions` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(60) DEFAULT NULL,
   `salt` varchar(120) DEFAULT NULL,
