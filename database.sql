@@ -81,7 +81,6 @@ CREATE TABLE `users` (
   `username` varchar(30) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(60) DEFAULT NULL,
-  `salt` varchar(120) DEFAULT NULL,
   `isactive` tinyint(1) NOT NULL DEFAULT '0',
   `dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
