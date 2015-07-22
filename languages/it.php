@@ -38,7 +38,7 @@ $lang['newemail_match'] = "Il nuovo indirizzo e-mail corrisponde al precedente."
 
 $lang['account_inactive'] = "L'account non è ancora stato attivato.";
 $lang['account_activated'] = "Account attivato.";
-$lang['account_deleted'] = "Account eliminato.";
+$lang['account_deleted'] = "Account eliminato correttamente.";
 
 $lang['logged_in'] = "Ora si è collegati.";
 //$lang['logged_out'] = "Disconnessione effettuata.";
@@ -48,8 +48,6 @@ $lang['system_error'] = "Si è verificato un errore di sistema. Si prega di ripro
 $lang['register_success'] = "Account creato. E-mail di attivazione inviata all'indirizzo indicato.";
 $lang['username_taken'] = "Questo nome utente esiste già.";
 $lang['email_taken'] = "L'indirizzo e-mail è già in uso.";
-
-$lang['key_invalid'] = "Chiave non valida.";
 
 $lang['resetkey_invalid'] = "Codice di ripristino non valido.";
 $lang['resetkey_incorrect'] = "Codice di ripristino incorretto.";

@@ -20,6 +20,7 @@ $lang['newpassword_short'] = "Le nouveau mot de passe est trop court.";
 $lang['newpassword_long'] = "Le nouveau mot de passe est trop long.";
 $lang['newpassword_invalid'] = "Le nouveau mot de passe doit contenir au moins un caractère en miniscule et en majuscule, et au moins un chiffre.";
 $lang['newpassword_nomatch'] = "Les nouveaux mots de passe ne sont pas identiques.";
+$lang['newpassword_match'] = "Le nouveau mot de passe est le m&ecirc;me que l'ancien.";
 
 $lang['email_short'] = "L'adresse email est trop courte.";
 $lang['email_long'] = "L'adresse email est trop longue.";
@@ -64,5 +65,7 @@ $lang['email_activation_altbody'] = "Bonjour, \n\n Pour pouvoir vous connecter v
 $lang['email_reset_subject'] = "%s - Reinitialisation de mot de passe";
 $lang['email_reset_body'] = "Bonjour,<br/><br/>Pour regénérer votre mot de passe cliquez sur le lien suivant :<br/><br/><strong><a href=\"%1$s/%2$s\">%1$s/%2$s</a></strong><br/><br/>Vous devrez utiliser cette clé pour regénérer votre mot de passe: <strong>%3$s</strong><br/><br/>Si vous n'avez pas demandé une réinitialisation de mot de passe, vous pouvez ignorer ce message.";
 $lang['email_reset_altbody'] = "Bonjour, \n\n Pour regénérer votre mot de passe cliquez sur le lien suivant :\n %1$s/%2$s\n\n Vous devrez utiliser cette clé pour regénérer votre mot de passe depuis cette adresse :  %1$s \n\n Si vous n'avez pas demandé une réinitialisation de mot de passe, vous pouvez ignorer ce message.";
+
+$lang['account_deleted'] = "Compte supprimé.";
 
 ?>

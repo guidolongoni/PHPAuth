@@ -186,7 +186,7 @@ class Auth
 		if(strlen($key) !== 20) {
 			$this->addAttempt();
 
-			$return['message'] = $this->lang["key_invalid"];
+			$return['message'] = $this->lang["activationkey_invalid"];
 			return $return;
 		}
 
@@ -247,7 +247,7 @@ class Auth
 			$return['message'] = $this->lang["email_incorrect"];
 			return $return;
 		}
-		
+
 		$addRequest = $this->addRequest($query->fetch(PDO::FETCH_ASSOC)['id'], $email, "reset");
 		if ($addRequest['error'] == 1) {
 			$this->addAttempt();
@@ -567,7 +567,7 @@ class Auth
 	* @return array $return
 	*/
 
-	public function deleteUser($uid, $password) 
+	public function deleteUser($uid, $password)
 	{
 		$return['error'] = true;
 
@@ -696,7 +696,7 @@ class Auth
 		if($type == "activation") {
 			$mail->Subject = sprintf($this->lang['email_activation_subject'], $this->config->site_name);
 			$mail->Body = sprintf($this->lang['email_activation_body'], $this->config->site_url, $this->config->site_activation_page, $key);
-			$mail->AltBody = sprintf($this->lang['email_activation_altbody'], $this->config->site_url, $this->config->site_activation_page, $key);			
+			$mail->AltBody = sprintf($this->lang['email_activation_altbody'], $this->config->site_url, $this->config->site_activation_page, $key);
 		} else {
 			$mail->Subject = sprintf($this->lang['email_reset_subject'], $this->config->site_name);
 			$mail->Body = sprintf($this->lang['email_reset_body'], $this->config->site_url, $this->config->site_password_reset_page, $key);
@@ -871,7 +871,7 @@ class Auth
 		}
 
 		if(strlen($key) != 20) {
-			$return['message'] = $this->lang["key_invalid"];
+			$return['message'] = $this->lang["resetkey_invalid"];
 			return $return;
 		}
 
@@ -1140,8 +1140,7 @@ class Auth
 		if ($row['count'] == 5) {
 			if ($currentdate < $expiredate) {
 				return true;
-			}
-
+}
 			$this->deleteAttempts($ip);
 			return false;
 		}

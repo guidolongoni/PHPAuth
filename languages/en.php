@@ -25,7 +25,7 @@ $lang['password_notvalid'] = "Password is invalid.";
 //$lang['newpassword_long'] = "New password is too long.";
 //$lang['newpassword_invalid'] = "New password must contain at least one uppercase and lowercase character, and at least one digit.";
 $lang['newpassword_nomatch'] = "New passwords do not match.";
-$lang['newpassword_match'] = "New password matches previous password.";
+$lang['newpassword_match'] = "New password is the same as the old password.";
 
 $lang['email_short'] = "Email address is too short.";
 $lang['email_long'] = "Email address is too long.";
@@ -38,7 +38,6 @@ $lang['newemail_match'] = "New email matches previous email.";
 
 $lang['account_inactive'] = "Account has not yet been activated.";
 $lang['account_activated'] = "Account activated.";
-$lang['account_deleted'] = "Account deleted.";
 
 $lang['logged_in'] = "You are now logged in.";
 //$lang['logged_out'] = "You are now logged out.";
@@ -48,8 +47,6 @@ $lang['system_error'] = "A system error has been encountered. Please try again."
 $lang['register_success'] = "Account created. Activation email sent to email.";
 $lang['username_taken'] = "The username is already taken.";
 $lang['email_taken'] = "The email address is already in use.";
-
-$lang['key_invalid'] = "The key is invalid.";
 
 $lang['resetkey_invalid'] = "Reset key is invalid.";
 $lang['resetkey_incorrect'] = "Reset key is incorrect.";
@@ -74,5 +71,7 @@ $lang['email_activation_altbody'] = "Hello, \n\n To be able to log in to your ac
 $lang['email_reset_subject'] = "%s - Password reset request";
 $lang['email_reset_body'] = "Hello,<br/><br/>To reset your password click the following link :<br/><br/><strong><a href=\"%1$s/%2$s\">%1$s/%2$s</a></strong><br/><br/>You then need to use the following password reset key: <strong>%3$s</strong><br/><br/>If you did not request a password reset key on %1$s recently then this message was sent in error, please ignore it.";
 $lang['email_reset_altbody'] = "Hello, \n\n To reset your password please visiting the following link :\n %1$s/%2$s\n\n You then need to use the following password reset key: %3$s\n\n If you did not request a password reset key on %1$s recently then this message was sent in error, please ignore it.";
+
+$lang['account_deleted'] = "Account deleted successfully.";
 
 ?>
