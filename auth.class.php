@@ -673,6 +673,8 @@ class Auth
 			return $return;
 		}
 
+		$request_id = $this->dbh->lastInsertId();
+
 		// Check configuration for SMTP parameters
 
 		if($this->config->smtp) {
@@ -706,6 +708,9 @@ class Auth
 		}
 
 		if(!$mail->send()) {
+			$query = $this->dbh->prepare("DELETE FROM {$this->config->table_requests} WHERE id = ?");
+			$query->execute(array($request_id));
+
 			$return['message'] = $this->lang["system_error"] . " #10";
 			return $return;
 		}
